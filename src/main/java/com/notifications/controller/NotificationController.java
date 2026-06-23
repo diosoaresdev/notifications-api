@@ -1,8 +1,11 @@
 package com.notifications.controller;
 
+import com.notifications.dto.NotificationRequest;
 import com.notifications.dto.NotificationResponse;
 import com.notifications.model.Notification;
 import com.notifications.service.NotificationService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,7 +24,7 @@ public class NotificationController {
 
     @Operation(summary = "Cria e envia uma notificação para a fila")
     @PostMapping
-    public ResponseEntity<NotificationResponse> criar(@RequestBody @Valid Notification request) {
+    public ResponseEntity<NotificationResponse> criar(@RequestBody @Valid NotificationRequest request) {
         Notification notification = service.criar(request);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(toResponse(notification));
     }
